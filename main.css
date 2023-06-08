@@ -1,0 +1,25 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.columna1 {
+    float: left;
+    width: 20%;
+    padding: 10px;
+    height: 300px;
+}
+
+.columna2 {
+    float: left;
+    width: 20%;
+    padding: 10px;
+    height: 300px;
+}
+
+.columna3 {
+    float: left;
+    width: 20%;
+    padding: 10px;
+    height: 300px;
+}
