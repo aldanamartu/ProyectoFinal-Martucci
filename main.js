@@ -8,17 +8,24 @@ const actualizarLocalStorge = (carrito, precio) => {
   localStorage.setItem("precio", JSON.stringify(precio));
 }
 
-const dibujarCarrito = (elementoCarrito) => {
+const dibujarPrecio = (precio) => {
+  document.getElementById("precio").innerHTML = `<h1><span class="badge bg-secondary">$${precio}</span></h1>`;
+}
+
+const dibujarElementoCarrito = (elementoCarrito) => {
   let itemCarrito = document.createElement("item-carrito");
 
   //agrego el producto al carrito en el html
   itemCarrito.setAttribute("id", `item-${elementoCarrito.id}`);
   itemCarrito.innerHTML = `
-          <h3>ID: ${elementoCarrito.id}</h3>
-          <p>Nombre: ${elementoCarrito.nombre}</p>
-          <b>$${elementoCarrito.precio}</b>
-          <p>Cantidad <span id=item-${elementoCarrito.id}-cantidad>${elementoCarrito.cantidad}</span></p>
-          <button id="eliminar-${elementoCarrito.id}" value="${elementoCarrito.id}">Eliminar del carrito</button>
+          <div class="card" style="width: 18rem;">
+            <img src="${elementoCarrito.imagen}" class="card-img-top" alt="${elementoCarrito.nombre}">
+            <div class="card-body">
+              <h5 class="card-title">${elementoCarrito.nombre}</h5>
+              <p class="card-text">Cantidad <span id=item-${elementoCarrito.id}-cantidad>${elementoCarrito.cantidad}</span></p>
+              <button class="btn btn-primary" id="eliminar-${elementoCarrito.id}" value="${elementoCarrito.id}">Eliminar del carrito</button>
+            </div>
+          </div>
           `;
 
   let carritoElement = document.getElementById("carrito");
@@ -55,7 +62,7 @@ const dibujarCarrito = (elementoCarrito) => {
 
         // actualizo el precio del carrito
         precio -= parseInt(carritoElement[0].precio);
-        document.getElementById("precio").innerHTML = `$${precio}`;
+        dibujarPrecio(precio);
         console.log("PRECIO: " + precio);
 
         actualizarLocalStorge(carrito, precio);
@@ -83,7 +90,7 @@ const init = async () => {
   } else {
     carrito = JSON.parse(carrito);
     carrito.forEach(item => {
-      dibujarCarrito(item);
+      dibujarElementoCarrito(item);
       document.getElementById("precio").innerHTML = `$${precio}`;
     });
   }
@@ -92,11 +99,14 @@ const init = async () => {
   productos.productos.forEach(item => {
     let producto = document.createElement("producto");
     producto.innerHTML = `
-      <h3>ID: ${item.id}</h3>
-      <p>Nombre: ${item.nombre}</p>
-      <b>$${item.precio}</b>
-      <br/>
-      <button id="agregar-${item.id}" value="${item.id}">Agregar a carrito</button>
+      <div class="card" style="width: 18rem;">
+        <img src="${item.imagen}" class="card-img-top" alt="${item.nombre}">
+        <div class="card-body">
+          <h5 class="card-title">${item.nombre}</h5>
+          <p class="card-text">$${item.precio}</p>
+          <button class="btn btn-primary" id="agregar-${item.id}" value="${item.id}">Agregar a carrito</button>
+        </div>
+      </div>
     `;
 
     document.getElementById("productos").append(producto);
@@ -122,11 +132,11 @@ const init = async () => {
         } else {
           elementoCarrito.cantidad = 1;
           carrito.push(elementoCarrito);
-          dibujarCarrito(elementoCarrito);
+          dibujarElementoCarrito(elementoCarrito);
         }
 
         precio += parseInt(elementoCarrito.precio);
-        document.getElementById("precio").innerHTML = `$${precio}`;
+        dibujarPrecio(precio);
         console.log("PRECIO: " + precio);
 
         //actualizo el localstorage con el carrito y el precio

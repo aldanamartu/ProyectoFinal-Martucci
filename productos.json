@@ -3,22 +3,26 @@
         {
             "id": 1,
             "nombre": "lemonpie",
-            "precio": 100
+            "precio": 100,
+            "imagen": "img/lemonpie.jpg"
         },
         {
             "id": 2,
             "nombre": "chocotorta",
-            "precio": 200
+            "precio": 200,
+            "imagen": "img/chocotorta.jpg"
         },
         {
             "id": 3,
             "nombre": "brownie",
-            "precio": 500
+            "precio": 500,
+            "imagen": "img/brownie.jpg"
         },
         {
             "id": 4,
             "nombre": "cheesecake",
-            "precio": 400
+            "precio": 400,
+            "imagen": "img/cheesecake.png"
         }
     ]
 }
