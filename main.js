@@ -12,7 +12,7 @@ const dibujarPrecio = (precio) => {
   document.getElementById("precio").innerHTML = `<h1><span class="badge bg-secondary">$${precio}</span></h1>`;
 }
 
-const dibujarElementoCarrito = (elementoCarrito) => {
+const dibujarItemCarrito = (elementoCarrito) => {
   let itemCarrito = document.createElement("item-carrito");
 
   //agrego el producto al carrito en el html
@@ -83,18 +83,21 @@ const init = async () => {
 
   if (precio) {
     precio = parseInt(precio);
+  } else {
+    precio = 0;
   }
+
+  dibujarPrecio(precio);
 
   if (!carrito || carrito.length == 0) {
     carrito = [];
   } else {
     carrito = JSON.parse(carrito);
     carrito.forEach(item => {
-      dibujarElementoCarrito(item);
-      document.getElementById("precio").innerHTML = `$${precio}`;
+      dibujarItemCarrito(item);
     });
   }
-
+  
   // imprimo productos en el DOM
   productos.productos.forEach(item => {
     let producto = document.createElement("producto");
@@ -132,7 +135,7 @@ const init = async () => {
         } else {
           elementoCarrito.cantidad = 1;
           carrito.push(elementoCarrito);
-          dibujarElementoCarrito(elementoCarrito);
+          dibujarItemCarrito(elementoCarrito);
         }
 
         precio += parseInt(elementoCarrito.precio);
